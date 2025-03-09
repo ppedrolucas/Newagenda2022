@@ -172,7 +172,7 @@
               <?php
               include_once('config/conexao.php');
               $id = $_GET['idUp'];
-              $select= "SELECT * FROM tbContato WHERE idContato=id";
+              $select= "SELECT * FROM tbcontato WHERE idContato=id";
               try{
                  $resultSel= $conect->prepare($select);
                  $resultSel->bindParam(':id', $id,PDO:: PARAM_INT);

@@ -34,29 +34,76 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Digite sua senha..." name="senha">
+          <input type="password" class="form-control" placeholder="Digite sua senha..." name="pass">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        <div class="row">
-          
+          <div class="input-group">
+            <button name="btnLog" type="submit" class="btn btn-primary btn-block mb-3">Acessar Agenda</button>
+          </div>
+
+          <?php
+
+        include_once('config/conexao.php');
+
+        if(isset($_GET['acao'])){
+          $acao = $_GET['acao'];
+          if($acao=='negado'){
+              echo '<div class="alert alert-danger" role="alert">
+                          Erro ao acessar o sistema !
+                    </div>';
+          }else if($acao=='sair'){
+              echo '<div class="alert alert-primary" role="alert">
+                        Seção encerrada, volte sempre c:
+                    </div>';
+          }
+      }
+        if(isset($_POST['btnLog'])){
             
-          </div>
-          <!-- /.col -->
-          <div class="col-12">
-            <button name="btnlogin" type="submit" class="btn btn-primary btn-block">Acessar Agenda</button>
-          </div>
-          <!-- /.col -->
+            $login=$_POST['email'];
+            $pass=$_POST['pass'];
+
+            $select="SELECT * FROM tbusers WHERE emailUser=:email AND senhaUser=:pass";
+            try {
+              $resultLogin = $conect->prepare($select);
+              
+              $resultLogin->bindParam(':email',$login, PDO::PARAM_STR);
+              $resultLogin->bindParam(':pass',$pass, PDO::PARAM_STR);
+              $resultLogin->execute();
+  
+              $verificar = $resultLogin->rowCount();
+              if ($verificar>0) {
+                
+                $login=$_POST['email'];
+                $pass=$_POST['pass'];
+                //CRIAR SESSAO »»
+               
+                $_SESSION['email'] = $login;
+                $_SESSION['pass'] = $pass;
+  
+                echo '<div class="alert alert-success" role="alert">
+                            Bem-vindo ao seu sistema de estoque :)
+                        </div>';
+              
+                header("Refresh: 1, home.php?acao=welcome");
+              }else{
+                echo '<div class="alert alert-danger" role="alert">
+                            Usuário inválido
+                        </div>';
+              }
+            } catch(PDOException $e){
+              echo "<strong>ERRO DE LOGIN = </strong>".$e->getMessage();
+            }
+          }
+
+        ?>
         </div>
       </form>
 
       <div class="social-auth-links text-center mb-3">
-        
-      <!-- /.social-auth-links -->
-
      
       <p stle="margin:20px 50px 0 0 ;text-align center"class="mb-0">
         <a href="registro.php" class="text-center">Cadastro para novo usuário</a>

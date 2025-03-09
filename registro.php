@@ -50,12 +50,12 @@
           </div>
         </div>
         <div class="form-group">
-                 <div class="input-group">
-                 <div class="custom-file">
+          <div class="input-group">
+            <div class="custom-file">
                 <input name="foto" type="file" class="custom-file-input" id="exampleInputFile">
                 <label class="custom-file-label" for="exampleInputFile">Foto do usuário</label>
-                      </div>
-           </div>
+            </div>
+          </div>
           </div>
        
           <!-- /.col -->
@@ -70,7 +70,7 @@
                   if(isset($_POST['btnCContato'])){
                     $nome=$_POST['nome'];
                     $email=$_POST['email'];
-                    $senha= base64_encode($_POST['senha']); 
+                    $senha=$_POST['senha']; 
                     $formatP= array("png","jpg","jpeg","JPG","gif");//formato aceito para imagem
                     $extensao= pathinfo($_FILES['foto']['name'],PATHINFO_EXTENSION);//$extensao=extrai a extensão do nome do arquivo
                    
@@ -83,7 +83,7 @@
                       $novoNome=uniqid().".$extensao";
                       //uniqid(criptografa o nome da imagem),depois concatena com a extensão
                       if(move_uploaded_file($temporario, $pasta.$novoNome)){
-                        $cadastro="INSERT INTO tabela(nomeContato,emailContato,fotoContato,senhaContato) VALUES(:nome,:email,:foto,:senha)";                   try{
+                        $cadastro="INSERT INTO tbusers(nomeUser,emailUser, fotoUser,senhaUser) VALUES(:nome,:email,:foto,:senha)";                   try{
                           $result=$conect-> prepare ($cadastro);
                           $result->bindParam(':nome',$nome,PDO::PARAM_STR);
                           $result->bindParam(':email',$email,PDO::PARAM_STR);

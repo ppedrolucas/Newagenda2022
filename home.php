@@ -230,7 +230,7 @@
                           $contar=$result->rowCount();
                         if($contar > 0){
                               echo '<div class="container">
-                                        <div class="alert alert-success alert-dismissible">
+                                        <div class=" alert alert-success alert-dismissible">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                         <h5><i class="icon fas fa-check"></i> OK!</h5>
                                         Contato inserido com sucesso !!!
@@ -288,7 +288,7 @@
 
                     ?>
                     <tr>
-                      <td><img style="width: 41px; border-radius: 100%;" src="img/foto1.jpg"></td>
+                      <td><img style=" width: 50px; heigth: 50px; aspect-radio: 1/1; border-radius: 100%;" src="img/<?php echo $show->fotoContato; ?>"></td>
                       <td>
                         <?php echo $show->nomeContato; ?>
                       </td>
